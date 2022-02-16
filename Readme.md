@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Владимир Васильев](https://up.htmlacademy.ru/javascript/25/user/1895435).
-* Наставник: `Неизвестно`.
+* Наставник:  [Максим Прусаков](https://htmlacademy.ru/profile/hikikomori).
 
 ---
 
