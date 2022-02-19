@@ -5,9 +5,13 @@ function getRandomNum (min, max) {
   return ('Используйте только положительные числа');
 }
 
+getRandomNum (2, 5);
+
 function checkCommentLength (comment, maxLength) {
   if (comment.length <= maxLength) {
     return true;
   }
   return false;
 }
+
+checkCommentLength('hello', 5);
