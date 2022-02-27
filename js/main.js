@@ -43,21 +43,23 @@ checkCommentLength('hello', 5);
 
 /*------ Больше деталей -------*/
 
-let messageTexts = ['Всё отлично!',
+const messageTexts = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-let messageNames = ['Петя', 'Вася', 'Нина', 'Серёжа', 'Маша', 'Алёна'];
+const messageNames = ['Петя', 'Вася', 'Нина', 'Серёжа', 'Маша', 'Алёна'];
 
-let descriptionPhotos = ['Красивый дом', 'Широкая река', 'Крутой водопад', 'Осенний лес', 'Зимняя дорога', 'Портрет девушки'];
-
-const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+const descriptionPhotos = ['Красивый дом', 'Широкая река', 'Крутой водопад', 'Осенний лес', 'Зимняя дорога', 'Портрет девушки'];
 
 let photoID = 0;
 let commentID = 0;
+
+const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+const getElement = (arr) => arr[getRandomNum(0, arr.length - 1)];
 
 const getTextMessage = (arr) => {
   let kol = getRandomNum(1, 2);
@@ -68,8 +70,6 @@ const getTextMessage = (arr) => {
   }
   return text;
 };
-
-const getElement = (arr) => arr[getRandomNum(0, arr.length - 1)];
 
 function getComment (id, avatar, message, name) {
   this.id = ++commentID;
@@ -87,7 +87,7 @@ function getPhoto (id, url, description, likes, comments) {
 }
 
 const getPhotos = (count) => {
-  let photos = [];
+  const photos = [];
   for (let i = 1; i <= count; i++) {
     photos.push(new getPhoto());
   }
