@@ -1,41 +1,54 @@
-const getRandomNum = (min, max) => {
-  if (min >= 0 && max >= 0 && min < max) {
-    return Math.floor(Math.random() * (max - min) + min);
+const MESSAGE_TEXTS = ['Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+];
+const MESSAGE_NAMES = ['Петя', 'Вася', 'Нина', 'Серёжа', 'Маша', 'Алёна'];
+
+const DESCRIPTION_PHOTOS = ['Красивый дом', 'Широкая река', 'Крутой водопад', 'Осенний лес', 'Зимняя дорога', 'Портрет девушки'];
+
+const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+const getArrayElement = (arr) => arr[getRandomNum(0, arr.length - 1)];
+
+let commentID;
+let photoID;
+
+const getTextMessage = (arr) => {
+  let value = getRandomNum(1, 2);
+  let text = '';
+  while (value !== 0) {
+    text += getArrayElement(arr);
+    value--;
   }
-  throw new Error(`Используйте только положительные числа. Или превое число ${min} болше конечного ${max} !`);
+  return text;
 };
 
-getRandomNum(2, 5);
+const Comment = function () {
+  this.id = ++commentID;
+  this.avatar = `img/avatar-${getRandomNum(1, 6)}.svg`;
+  this.message = getTextMessage(MESSAGE_TEXTS);
+  this.name = getArrayElement(MESSAGE_NAMES);
+};
 
-const getRandomNumCatch = (min, max) => {
-  try {
-    if (min <= 0 || max <= 0) {
-      throw {
-        name: 'NegativeNumber',
-        message: 'Используйте только положительные числа'
-      };
-    } else if (max < min) {
-      throw {
-        name: 'UnequalNumber',
-        message: `Некорректный диапазон ${min} болше ${max}!`
-      };
-    } else {
-      return Math.floor(Math.random() * (max - min) + min);
-    }
-  } catch (error) {
-    if (error.name === 'NegativeNumber') {
-      throw error.message;
-    } else if (error.name === 'UnequalNumber') {
-      throw error.message;
-    }
+const Photo = function () {
+  this.id = ++photoID;
+  this.url = `photos/${this.id}.svg`;
+  this.description = getArrayElement(DESCRIPTION_PHOTOS);
+  this.likes = getRandomNum(15, 200);
+  this.comments = new Comment();
+};
+
+const getPhotos = (count) => {
+  commentID = 0;
+  photoID = 0;
+  const photos = [];
+  for (let i = 1; i <= count; i++) {
+    photos.push(new Photo());
   }
+  return photos;
 };
 
-getRandomNumCatch(2, 9);
-
-const checkCommentLength = (comment, maxLength) => {
-  const check = comment.length <= maxLength;
-  return check;
-};
-
-checkCommentLength('hello', 5);
+getPhotos(25);
