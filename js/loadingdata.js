@@ -39,4 +39,4 @@ const getPhotos = (count) => {
   return photos;
 };
 
-getPhotos(25);
+export {getPhotos};
