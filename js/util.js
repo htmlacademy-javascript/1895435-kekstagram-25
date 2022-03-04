@@ -12,4 +12,4 @@ const getTextMessage = (arr) => {
   return text;
 };
 
-export {getRandomNum, getArrayElement, getTextMessage};
+export { getRandomNum, getArrayElement, getTextMessage };
