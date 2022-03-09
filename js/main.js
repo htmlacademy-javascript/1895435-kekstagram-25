@@ -1,3 +1,5 @@
 import {getPhotos} from './loadingdata.js';
+window.getPhotos = getPhotos;
+import {pictures} from './view.js';
 
-getPhotos(25);
+getPhotos(3);

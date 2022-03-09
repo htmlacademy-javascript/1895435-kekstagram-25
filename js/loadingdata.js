@@ -23,7 +23,7 @@ const Comment = function () {
 
 const Photo = function () {
   this.id = ++photoID;
-  this.url = `photos/${this.id}.svg`;
+  this.url = `../photos/${this.id}.jpg`;
   this.description = getArrayElement(DESCRIPTION_PHOTOS);
   this.likes = getRandomNum(15, 200);
   this.comments = new Comment();
