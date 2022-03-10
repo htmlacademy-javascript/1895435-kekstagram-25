@@ -1,3 +1,6 @@
 import {getPhotos} from './loadingdata.js';
+import {getMiniatures} from './miniatures.js';
 
-getPhotos(25);
+const photosData = getPhotos(25);
+
+getMiniatures(photosData);
