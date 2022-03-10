@@ -1,5 +1,4 @@
 import { getRandomNum, getArrayElement, getTextMessage } from './util.js';
-import {getMiniatures} from './miniatures.js';
 
 const MESSAGE_TEXTS = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -40,7 +39,4 @@ const getPhotos = (count) => {
   return photos;
 };
 
-const pictures = getMiniatures(getPhotos(25));
-
-export {pictures};
-
+export {getPhotos};
