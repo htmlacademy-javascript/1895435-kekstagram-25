@@ -9,7 +9,7 @@ const getMiniatures = (arr) => {
     pictureElement.querySelector('.picture__likes').textContent = likes;
     listMiniatures.append(pictureElement);
   });
-  return document.querySelector('.pictures').append(listMiniatures);
+  document.querySelector('.pictures').append(listMiniatures);
 };
 
 export {getMiniatures};
