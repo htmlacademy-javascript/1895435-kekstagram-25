@@ -1,4 +1,5 @@
 import { getRandomNum, getArrayElement, getTextMessage } from './util.js';
+import {getMiniatures} from './miniatures.js';
 
 const MESSAGE_TEXTS = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -23,7 +24,7 @@ const Comment = function () {
 
 const Photo = function () {
   this.id = ++photoID;
-  this.url = `../photos/${this.id}.jpg`;
+  this.url = `photos/${this.id}.jpg`;
   this.description = getArrayElement(DESCRIPTION_PHOTOS);
   this.likes = getRandomNum(15, 200);
   this.comments = new Comment();
@@ -39,4 +40,7 @@ const getPhotos = (count) => {
   return photos;
 };
 
-export {getPhotos};
+const pictures = getMiniatures(getPhotos(25));
+
+export {pictures};
+
