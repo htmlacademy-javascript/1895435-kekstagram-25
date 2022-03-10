@@ -1,3 +1,1 @@
-import {pictures} from './view.js';
-
-export {pictures}; //Чтобы lint не ругался
+import {pictures} from './loadingdata.js';
