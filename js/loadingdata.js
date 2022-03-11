@@ -18,7 +18,7 @@ const Comment = function () {
   this.id = ++commentID;
   this.avatar = `img/avatar-${getRandomNum(1, 6)}.svg`;
   this.message = getTextMessage(MESSAGE_TEXTS);
-  this.name = getArrayElement(MESSAGE_NAMES);
+  this.nameAuthor = getArrayElement(MESSAGE_NAMES);
 };
 
 const Photo = function () {
