@@ -12,4 +12,8 @@ const getTextMessage = (arr) => {
   return text;
 };
 
-export { getRandomNum, getArrayElement, getTextMessage };
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export { getRandomNum, getArrayElement, getTextMessage, isEnterKey, isEscapeKey };
