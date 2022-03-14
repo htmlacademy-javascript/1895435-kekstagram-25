@@ -1,3 +1,5 @@
+import {hiddenElementWindow} from './viewpicture.js';
+
 const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 const getArrayElement = (arr) => arr[getRandomNum(0, arr.length - 1)];
@@ -12,8 +14,25 @@ const getTextMessage = (arr) => {
   return text;
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const onModalEscKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hiddenElementWindow();
+  }
+};
 
-const isEnterKey = (evt) => evt.key === 'Enter';
+const onModalClick = () => hiddenElementWindow();
 
-export { getRandomNum, getArrayElement, getTextMessage, isEnterKey, isEscapeKey };
+const closeModalWindowClick = () => {
+  onModalClick();
+  document.removeEventListener('keydown', onModalEscKeydown);
+  document.removeEventListener ('click', onModalClick);
+};
+
+const closeModalWindowKeydown = (evt) => {
+  onModalEscKeydown(evt);
+  document.removeEventListener('keydown', onModalEscKeydown);
+  document.removeEventListener ('click', onModalClick);
+};
+
+export { getRandomNum, getArrayElement, getTextMessage, closeModalWindowClick, closeModalWindowKeydown };
