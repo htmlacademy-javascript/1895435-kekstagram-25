@@ -1,19 +1,12 @@
-import {isEscapeKey} from './util.js';
+import {closeModalWindowClick, closeModalWindowKeydown} from './util.js';
 
-const closeModalWindow = () => {
-  document.querySelector('body').classList.remove('modal-open');
+const hiddenElementWindow = () => {
+  document.body.classList.remove('modal-open');
   document.querySelector('.big-picture').classList.add('hidden');
 };
 
-const onModalEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeModalWindow();
-  }
-};
-
 const picturesContainer = document.querySelector('.pictures');
-const ModalCloseElement = document.querySelector('#picture-cancel');
+const modalCloseElement = document.querySelector('#picture-cancel');
 
 const getComments = (arr) => {
   for (const comment of arr) {
@@ -29,12 +22,12 @@ const getComments = (arr) => {
   }
 };
 
-const viewPicture = (arr) => {
+const openModalWindow = (arr) => {
   picturesContainer.addEventListener('click', (event) => {
 
     if (event.target.nodeName === 'IMG') {
       document.querySelector('.big-picture').classList.remove('hidden');
-      document.querySelector('body').classList.add('modal-open');
+      document.body.classList.add('modal-open');
       event.preventDefault();
       const currentPicture = arr[event.target.id - 1];
       document.querySelector('.big-picture__img').firstElementChild.src = currentPicture.url;
@@ -46,24 +39,11 @@ const viewPicture = (arr) => {
       document.querySelector('.social__comment-count').classList.add('hidden');
       document.querySelector('.comments-loader').classList.add('hidden');
 
-      ModalCloseElement.addEventListener ('click', () => {
-        closeModalWindow();
-        document.removeEventListener('keydown', onModalEscKeydown);
-      });
+      modalCloseElement.addEventListener ('click', closeModalWindowClick);
 
-      document.addEventListener ('keydown',(evt) => {
-        if (isEscapeKey(evt)) {
-          evt.preventDefault();
-          closeModalWindow();
-          document.removeEventListener('keydown', onModalEscKeydown);
-        }
-      });
+      document.addEventListener ('keydown',closeModalWindowKeydown);
     }
   });
 };
 
-const openModalWindow = (arr) => {
-  viewPicture(arr);
-};
-
-export {openModalWindow};
+export {openModalWindow, hiddenElementWindow};
