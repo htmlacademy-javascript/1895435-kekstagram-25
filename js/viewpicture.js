@@ -39,10 +39,10 @@ const openModalWindow = (arr) => {
       document.querySelector('.social__comment-count').classList.add('hidden');
       document.querySelector('.comments-loader').classList.add('hidden');
 
-      //modalCloseElement.addEventListener ('click', closeModalWindowClick, { once: true });
       const closeModalWindowClick = () => {
         hiddenElementWindow();
-        modalCloseElement.removeEventListener ('keydown', closeModalWindowKeydown);
+        // eslint-disable-next-line no-use-before-define
+        document.removeEventListener ('keydown', closeModalWindowKeydown);
       };
 
       const closeModalWindowKeydown = (evt) => {
