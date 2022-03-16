@@ -17,7 +17,7 @@ const getTextMessage = (arr) => {
 const onModalEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    hiddenElementWindow();
+    //hiddenElementWindow();
   }
 };
 
@@ -35,4 +35,4 @@ const closeModalWindowKeydown = (evt) => {
   document.removeEventListener ('click', onModalClick);
 };
 
-export { getRandomNum, getArrayElement, getTextMessage, closeModalWindowClick, closeModalWindowKeydown };
+export { getRandomNum, getArrayElement, getTextMessage, closeModalWindowClick, closeModalWindowKeydown, onModalEscKeydown };

@@ -1,4 +1,4 @@
-import {closeModalWindowClick, closeModalWindowKeydown} from './util.js';
+import {onModalEscKeydown} from './util.js';
 
 const hiddenElementWindow = () => {
   document.body.classList.remove('modal-open');
@@ -39,9 +39,21 @@ const openModalWindow = (arr) => {
       document.querySelector('.social__comment-count').classList.add('hidden');
       document.querySelector('.comments-loader').classList.add('hidden');
 
-      modalCloseElement.addEventListener ('click', closeModalWindowClick);
+      //modalCloseElement.addEventListener ('click', closeModalWindowClick, { once: true });
+      const closeModalWindowClick = () => {
+        hiddenElementWindow();
+        modalCloseElement.removeEventListener ('keydown', closeModalWindowKeydown);
+      };
 
-      document.addEventListener ('keydown',closeModalWindowKeydown);
+      const closeModalWindowKeydown = (evt) => {
+        onModalEscKeydown(evt);
+        hiddenElementWindow();
+        modalCloseElement.removeEventListener ('click', closeModalWindowClick);
+      };
+
+      modalCloseElement.addEventListener ('click', closeModalWindowClick, { once: true });
+
+      document.addEventListener ('keydown',closeModalWindowKeydown, { once: true });
     }
   });
 };
