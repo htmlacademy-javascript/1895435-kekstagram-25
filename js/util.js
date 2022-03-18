@@ -1,3 +1,5 @@
+import {hideElementWindow, modalCloseElement, onPopupClick} from './viewpicture.js';
+
 const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 const getArrayElement = (arr) => arr[getRandomNum(0, arr.length - 1)];
@@ -12,9 +14,13 @@ const getTextMessage = (arr) => {
   return text;
 };
 
-const onModalEscKeydown = (evt) => {
+const onPopupEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
+    hideElementWindow();
+    document.removeEventListener('keydown', onPopupEscKeydown);
+    modalCloseElement.removeEventListener ('click', onPopupClick);
   }
 };
-export { getRandomNum, getArrayElement, getTextMessage, onModalEscKeydown };
+
+export { getRandomNum, getArrayElement, getTextMessage, onPopupEscKeydown};

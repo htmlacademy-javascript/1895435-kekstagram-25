@@ -1,6 +1,6 @@
-import {onModalEscKeydown} from './util.js';
+import {onPopupEscKeydown} from './util.js';
 
-const hiddenElementWindow = () => {
+const hideElementWindow = () => {
   document.body.classList.remove('modal-open');
   document.querySelector('.big-picture').classList.add('hidden');
 };
@@ -22,6 +22,11 @@ const getComments = (arr) => {
   }
 };
 
+const onPopupClick = () =>  {
+  hideElementWindow();
+  document.removeEventListener ('keydown', onPopupEscKeydown);
+};
+
 const openModalWindow = (arr) => {
   picturesContainer.addEventListener('click', (event) => {
 
@@ -39,23 +44,11 @@ const openModalWindow = (arr) => {
       document.querySelector('.social__comment-count').classList.add('hidden');
       document.querySelector('.comments-loader').classList.add('hidden');
 
-      const closeModalWindowClick = () => {
-        hiddenElementWindow();
-        // eslint-disable-next-line no-use-before-define
-        document.removeEventListener ('keydown', closeModalWindowKeydown);
-      };
+      modalCloseElement.addEventListener ('click', onPopupClick, {once: true});
 
-      const closeModalWindowKeydown = (evt) => {
-        onModalEscKeydown(evt);
-        hiddenElementWindow();
-        modalCloseElement.removeEventListener ('click', closeModalWindowClick);
-      };
-
-      modalCloseElement.addEventListener ('click', closeModalWindowClick, { once: true });
-
-      document.addEventListener ('keydown',closeModalWindowKeydown, { once: true });
+      document.addEventListener ('keydown', onPopupEscKeydown);
     }
   });
 };
 
-export {openModalWindow, hiddenElementWindow};
+export {openModalWindow,  hideElementWindow, modalCloseElement, onPopupClick};
