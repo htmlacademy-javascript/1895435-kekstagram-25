@@ -20,19 +20,21 @@ const getComments = (arr) => {
   }
 };
 
+const onPopupEscKeydown = hidePopupEscKeydown;
+
 const onPopupCloseElementClick = () => {
   hideElementWindow();
   document.removeEventListener ('keydown', onPopupEscKeydown);
 };
 
-const onPopupEscKeydown = (evt) => {
+function hidePopupEscKeydown (evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hideElementWindow();
     document.removeEventListener('keydown', onPopupEscKeydown);
     modalCloseElement.removeEventListener ('click', onPopupCloseElementClick);
   }
-};
+}
 
 const openModalWindow = (arr) => {
   picturesContainer.addEventListener('click', (event) => {
