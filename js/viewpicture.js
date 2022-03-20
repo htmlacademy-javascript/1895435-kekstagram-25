@@ -1,5 +1,3 @@
-import {onPopupEscKeydown} from './util.js';
-
 const hideElementWindow = () => {
   document.body.classList.remove('modal-open');
   document.querySelector('.big-picture').classList.add('hidden');
@@ -22,9 +20,18 @@ const getComments = (arr) => {
   }
 };
 
-const onPopupClick = () =>  {
+const onPopupCloseElementClick = () => {
   hideElementWindow();
   document.removeEventListener ('keydown', onPopupEscKeydown);
+};
+
+const onPopupEscKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    hideElementWindow();
+    document.removeEventListener('keydown', onPopupEscKeydown);
+    modalCloseElement.removeEventListener ('click', onPopupCloseElementClick);
+  }
 };
 
 const openModalWindow = (arr) => {
@@ -44,11 +51,11 @@ const openModalWindow = (arr) => {
       document.querySelector('.social__comment-count').classList.add('hidden');
       document.querySelector('.comments-loader').classList.add('hidden');
 
-      modalCloseElement.addEventListener ('click', onPopupClick, {once: true});
+      modalCloseElement.addEventListener ('click', onPopupCloseElementClick, {once: true});
 
       document.addEventListener ('keydown', onPopupEscKeydown);
     }
   });
 };
 
-export {openModalWindow,  hideElementWindow, modalCloseElement, onPopupClick};
+export {openModalWindow};
