@@ -12,9 +12,4 @@ const getTextMessage = (arr) => {
   return text;
 };
 
-const onModalEscKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-  }
-};
-export { getRandomNum, getArrayElement, getTextMessage, onModalEscKeydown };
+export { getRandomNum, getArrayElement, getTextMessage};
