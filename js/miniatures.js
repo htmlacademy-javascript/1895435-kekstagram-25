@@ -2,8 +2,9 @@ const pictureTemplate = document.querySelector('#picture').content.querySelector
 const listMiniatures = document.createDocumentFragment();
 
 const getMiniatures = (arr) => {
-  arr.forEach(({url, likes, comments}) => {
+  arr.forEach(({id, url, likes, comments}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.querySelector('.picture__img').setAttribute('id', id);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
     pictureElement.querySelector('.picture__likes').textContent = likes;

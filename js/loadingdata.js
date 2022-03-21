@@ -18,7 +18,15 @@ const Comment = function () {
   this.id = ++commentID;
   this.avatar = `img/avatar-${getRandomNum(1, 6)}.svg`;
   this.message = getTextMessage(MESSAGE_TEXTS);
-  this.name = getArrayElement(MESSAGE_NAMES);
+  this.nameAuthor = getArrayElement(MESSAGE_NAMES);
+};
+
+const addComments = (count) => {
+  const arrComents = [];
+  for (let i = 1; i <= count; i++) {
+    arrComents.push(new Comment());
+  }
+  return arrComents;
 };
 
 const Photo = function () {
@@ -26,7 +34,7 @@ const Photo = function () {
   this.url = `photos/${this.id}.jpg`;
   this.description = getArrayElement(DESCRIPTION_PHOTOS);
   this.likes = getRandomNum(15, 200);
-  this.comments = new Comment();
+  this.comments = addComments(5);
 };
 
 const getPhotos = (count) => {
