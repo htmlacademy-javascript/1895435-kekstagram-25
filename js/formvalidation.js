@@ -3,18 +3,21 @@ const uploadForm = document.querySelector('.img-upload__form');
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
-  errorTextTag: 'span'
+  errorTextTag: 'div'
 });
 
 const hashtagPattern = /^#[А-Яа-яЁё0-9_]{2,20}$/;
 const valueHashtagInput = uploadForm.querySelector('.text__hashtags').value;
 const hashtags = valueHashtagInput.split(' ');
 
-const validateHashtag = () => {
-  hashtags.forEach ((item) => {
-    const valid = hashtagPattern.test(item);
-  });
+
+function validateHashtag (value) {
+  //hashtags.forEach ((item) => {
+  return hashtagPattern.test(value);
+  //alert(hashtagPattern.test(value));
+  //});
 };
+
 
 const duplicatHashtag = () => {
   let i = 1;
@@ -30,11 +33,11 @@ const lengthHashtag = () => {
   }
 };
 
-pristine.addValidator(valueHashtagInput, validateHashtag, 'Хэш-тег должен начинаться с #, не содержать спецсимволов и пробелы, максимальная длина одного хэш-тега 20 символов');
+pristine.addValidator(uploadForm.querySelector('.text__hashtags'), validateHashtag, 'Хэш-тег должен начинаться с #, не содержать спецсимволов и пробелы, максимальная длина одного хэш-тега 20 символов', 2, false);
 
-pristine.addValidator(valueHashtagInput, duplicatHashtag, 'Дублирование хэш-тегов не допустимо');
+//pristine.addValidator(uploadForm.querySelector('.text__hashtags'), duplicatHashtag, 'Дублирование хэш-тегов не допустимо');
 
-pristine.addValidator(valueHashtagInput, lengthHashtag, 'Допускается не более 5 хэш-тегов');
+//pristine.addValidator(uploadForm.querySelector('.text__hashtags'), lengthHashtag, 'Допускается не более 5 хэш-тегов');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
