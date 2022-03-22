@@ -30,11 +30,11 @@ const lengthHashtag = () => {
   }
 };
 
-pristine.addValidator(valueHashtagInput, validateHashtag, '���-��� ������ ���������� � #, �� ��������� ���� �������� � ��������, �� ��������� 20 ��������');
+pristine.addValidator(valueHashtagInput, validateHashtag, 'Хэш-тег должен начинаться с #, не содержать спецсимволов и пробелы, максимальная длина одного хэш-тега 20 символов');
 
-pristine.addValidator(valueHashtagInput, duplicatHashtag, '������ ���-��� �.�. ����������');
+pristine.addValidator(valueHashtagInput, duplicatHashtag, 'Дублирование хэш-тегов не допустимо');
 
-pristine.addValidator(valueHashtagInput, lengthHashtag, '������ ��������� ������ ���� ���-�����');
+pristine.addValidator(valueHashtagInput, lengthHashtag, 'Допускается не более 5 хэш-тегов');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
