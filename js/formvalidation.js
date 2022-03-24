@@ -10,14 +10,17 @@ const hashtagPattern = /^(#[A-za-zА-Яа-яЁё0-9_]{2,19}\s?)*$/;
 
 const validateHashtag = (value) => hashtagPattern.test(value);
 
-//const hashtagsSet = uploadForm.querySelector('#upload-file');
-
 const duplicatHashtag = (value) => {
-  value = [];
-  //hashtagsSet.add(value);
-  //hashtagsSet.forEach(val=>{
-   alert(value);
-  //});
+  let hashtagsLine = value;
+  hashtagsLine = value;
+  const hashtagsArray = hashtagsLine.split(' ');
+  const lengthArray = hashtagsArray.length;
+  if (lengthArray > 2) {
+    for (let i = 2; i <= lengthArray; i++) {
+      //alert(hashtagsArray + '-' + lengthArray + '-' + i);
+      return !hashtagsArray.includes(hashtagsArray[i - 2], i - 1);
+    }
+  }
 };
 /*const hashtags = value.split(' ');
   let i = 1;
