@@ -4,7 +4,6 @@ const uploadFile = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
 const editPictureForm = document.querySelector('.img-upload__overlay');
 const modalCloseElement = document.querySelector('#upload-cancel');
-const hashtagInput = document.activeElement.tagName;
 
 const onPopupEscKeydown = hidePopupEscKeydown;
 
@@ -15,7 +14,8 @@ const onPopupCloseElementClick = () => {
 };
 
 function hidePopupEscKeydown (evt) {
-  if (evt.key === 'Escape' && hashtagInput !== 'input') {
+  const hashtagInput = String(document.activeElement.classList);
+  if (evt.key === 'Escape' && hashtagInput !== 'text__hashtags') {
     evt.preventDefault();
     editPictureForm.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');

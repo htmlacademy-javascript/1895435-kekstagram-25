@@ -1,5 +1,6 @@
 const uploadForm = document.querySelector('.img-upload__form');
 const MAX_HASHTAGS = 5;
+const MAX_COMMENT = 140;
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__text',
@@ -8,8 +9,6 @@ const pristine = new Pristine(uploadForm, {
 });
 
 const hashtagPattern = /^(#[A-za-zА-Яа-яЁё0-9_]{2,19}\s?)*$/;
-
-const validateHashtag = (value) => hashtagPattern.test(value);
 
 let hashtagsArray = [];
 
@@ -26,13 +25,13 @@ const duplicatHashtag = (value) => {
   return !hashtagsArray.includes(hashtag, 1);
 };
 
-const lengthHashtag = () => hashtagsArray.length <= MAX_HASHTAGS;
+pristine.addValidator(document.querySelector('.text__hashtags'), (value) => hashtagPattern.test(value), 'Хэш-тег должен начинаться с #, не содержать спецсимволов и пробелы, максимальная длина одного хэш-тега 20 символов', 2, false);
 
-pristine.addValidator(uploadForm.querySelector('.text__hashtags'), validateHashtag, 'Хэш-тег должен начинаться с #, не содержать спецсимволов и пробелы, максимальная длина одного хэш-тега 20 символов', 2, false);
+pristine.addValidator(document.querySelector('.text__hashtags'), duplicatHashtag, 'Дублирование хэш-тегов не допустимо');
 
-pristine.addValidator(uploadForm.querySelector('.text__hashtags'), duplicatHashtag, 'Дублирование хэш-тегов не допустимо');
+pristine.addValidator(document.querySelector('.text__hashtags'), () => hashtagsArray.length <= MAX_HASHTAGS, 'Допускается не более 5 хэш-тегов');
 
-pristine.addValidator(uploadForm.querySelector('.text__hashtags'), lengthHashtag, 'Допускается не более 5 хэш-тегов');
+pristine.addValidator(document.querySelector('.text__description'), (value) => value.length <= MAX_COMMENT, 'Комментарий не должен превышать 140 символов');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
