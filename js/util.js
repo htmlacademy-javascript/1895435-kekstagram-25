@@ -12,4 +12,6 @@ const getTextMessage = (arr) => {
   return text;
 };
 
-export { getRandomNum, getArrayElement, getTextMessage};
+const compareLength = (value, max) => value.length <= max;
+
+export { getRandomNum, getArrayElement, getTextMessage, compareLength};
