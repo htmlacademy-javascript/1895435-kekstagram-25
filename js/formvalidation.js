@@ -7,9 +7,8 @@ const MAX_HASHTAGS = 5;
 const MAX_COMMENT = 140;
 
 const pristine = new Pristine(uploadForm, {
-  classTo: 'img-upload__text',
-  errorTextParent: 'img-upload__text',
-  errorTextTag: 'div'
+  classTo: 'img-upload__text-valid',
+  errorTextParent: 'img-upload__text-valid',
 });
 
 const hashtagPattern = /^(#[A-za-zА-Яа-яЁё0-9_]{2,19}\s?)*$/;
