@@ -20,14 +20,12 @@ const getComments = (arr) => {
   }
 };
 
-const onPopupEscKeydown = hidePopupEscKeydown;
-
 const onPopupCloseElementClick = () => {
   hideElementWindow();
   document.removeEventListener ('keydown', onPopupEscKeydown);
 };
 
-function hidePopupEscKeydown (evt) {
+function onPopupEscKeydown (evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hideElementWindow();
