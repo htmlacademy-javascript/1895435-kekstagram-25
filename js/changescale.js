@@ -23,7 +23,7 @@ function getScale (range) {
   };
 }
 
-let scale = getScale(SCALE_RANGE);
+const scale = getScale(SCALE_RANGE);
 
 function getImageScale(val) {
   scaleControl.value = `${val}%`;

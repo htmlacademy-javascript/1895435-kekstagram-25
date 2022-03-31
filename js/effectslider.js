@@ -9,13 +9,6 @@ const EFFECT_MARVIN = {range: {min: 0, max: 100}, start: 100, step: 1, format: {
 const EFFECT_PHOBOS = {range: {min: 0, max: 3}, start: 3, step: 0.1, format: {to: (value) => `${value.toFixed(1)}px`, from: (value) => parseFloat(value)}};
 const EFFECT_HEAT = {range: {min: 0, max: 3}, start: 3, step: 0.1, format: {to: (value) => value.toFixed(1), from: (value) => parseFloat(value)}};
 
-noUiSlider.create(sliderElement, {
-  range: {min: 1, max: 3},
-  start: 3,
-  step: 0.1,
-  connect: 'lower'
-});
-
 const switchEffects = {
   chrome: {'effect': EFFECT_CHROME, 'filter': 'grayscale'},
   sepia: {'effect': EFFECT_SEPIA, 'filter': 'sepia'},
@@ -24,7 +17,13 @@ const switchEffects = {
   heat: {'effect': EFFECT_HEAT, 'filter': 'brightness'}
 };
 
-effectsList.addEventListener('click', (evt) => {
+const getEffectSlider = () => {
+  noUiSlider.create(sliderElement, {range: {min: 1, max: 3}, start: 3, step: 0.1, connect: 'lower'});
+  sliderElement.hidden = true;
+  imagePreview.style.filter = 'none';
+};
+
+const onEffectElementClick = (evt) => {
   if(evt.target.tagName === 'INPUT') {
     const effectKey = evt.target.closest('input').value;
     if (effectKey !== 'none') {
@@ -39,4 +38,8 @@ effectsList.addEventListener('click', (evt) => {
       sliderElement.hidden = true;
     }
   }
-});
+};
+
+effectsList.addEventListener('click', onEffectElementClick);
+
+export {getEffectSlider, sliderElement};
