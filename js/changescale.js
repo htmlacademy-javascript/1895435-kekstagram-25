@@ -8,13 +8,13 @@ const SCALE_STEP = 25;
 function getScale (range) {
   let count = range[1];
   return {
-    more:function() {
+    more: () => {
       if (count < range[1]) {
         count += SCALE_STEP;
       }
       return count;
     },
-    less:function() {
+    less: () => {
       if (count > range[0]) {
         count -= SCALE_STEP;
       }
