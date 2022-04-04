@@ -14,4 +14,8 @@ const getTextMessage = (arr) => {
 
 const compareLength = (value, max) => value.length <= max;
 
+const showAlert = (message) => {
+  alert('Error');
+};
+
 export { getRandomNum, getArrayElement, getTextMessage, compareLength};

@@ -41,7 +41,7 @@ const openModalWindow = (arr) => {
       document.querySelector('.big-picture').classList.remove('hidden');
       document.body.classList.add('modal-open');
       event.preventDefault();
-      const currentPicture = arr[event.target.id - 1];
+      const currentPicture = arr[event.target.id];
       document.querySelector('.big-picture__img').firstElementChild.src = currentPicture.url;
       document.querySelector('.likes-count').textContent = currentPicture.likes;
       document.querySelector('.comments-count').textContent = currentPicture.comments.length;
