@@ -710,6 +710,14 @@ main {
   border-radius: 5px;
 }
 
+.pristine-error {
+  width: 450px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-size: 0.75em;
+  color: #ffe753;
+}
+
 
 /**
  * Кнопка для отправки изображения

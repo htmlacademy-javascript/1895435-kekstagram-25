@@ -1,4 +1,5 @@
 import './formvalidation.js';
+import {getEffectSlider, sliderElement} from './effectslider.js';
 
 const uploadFile = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -10,6 +11,7 @@ const onPopupCloseElementClick = () => {
   document.body.classList.remove('modal-open');
   document.removeEventListener ('keydown', onPopupEscKeydown);
   uploadForm.reset();
+  sliderElement.noUiSlider.destroy();
 };
 
 function onPopupEscKeydown (evt) {
@@ -21,12 +23,14 @@ function onPopupEscKeydown (evt) {
     document.removeEventListener('keydown', onPopupEscKeydown);
     modalCloseElement.removeEventListener ('click', onPopupCloseElementClick);
     uploadForm.reset();
+    sliderElement.noUiSlider.destroy();
   }
 }
 
 uploadFile.addEventListener('change', () => {
   editPictureForm.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  getEffectSlider();
   modalCloseElement.addEventListener('click', onPopupCloseElementClick, {once: true});
   document.addEventListener ('keydown', onPopupEscKeydown);
 });
