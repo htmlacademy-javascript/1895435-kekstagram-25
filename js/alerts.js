@@ -33,17 +33,24 @@ const onAlertCloseElementClick = () => {
 };
 
 const onAlertCloseWindowClick = (evt) => {
-  const ariaClick = evt.composedPath().includes('DIV');
-  alert(ariaClick);
-  //if (ariaClick) {
-  //  viewContainer.removeChild(document.body.lastChild);
-  //}
+  const ariaClick = evt.composedPath();
+  if (ariaClick[0].innerHTML.includes('div')) {
+    viewContainer.removeChild(alertSuccess);
+  }
+};
+
+const onAlertCloseEscKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    viewContainer.removeChild(alertSuccess);
+  }
 };
 
 const viewAlertSuccess = () => {
   viewContainer.appendChild(alertSuccess);
   document.querySelector('.success__button').addEventListener('click', onAlertCloseElementClick);
-  document.addEventListener('click', onAlertCloseWindowClick);
+  document.querySelector('.success').addEventListener('click', onAlertCloseWindowClick);
+  document.addEventListener('click', onAlertCloseEscKeydown);
 };
 
 const viewAlertError = () => {
