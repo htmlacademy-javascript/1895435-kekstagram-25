@@ -1,6 +1,5 @@
 import { sendData } from './dataserver.js';
 import {compareLength} from './util.js';
-import {showAlert} from './util.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const textHashtags = document.querySelector('.text__hashtags');
@@ -49,7 +48,7 @@ uploadForm.addEventListener('submit', (evt) => {
   if(pristine.validate()) {
     blockSubmitButton();
     const formData = new FormData(evt.target);
-    sendData('https://25.javascript.pages.academy/kekstagram1', formData);
+    sendData('https://25.javascript.pages.academy/kekstagram', formData);
     unblockSubmitButton();
   }
 });

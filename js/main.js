@@ -1,7 +1,7 @@
 import {getData} from './dataserver.js';
 import {getMiniatures} from './miniatures.js';
 import {openModalWindow} from './viewpicture.js';
-import {showAlert} from './util.js';
+import {showAlert} from './alerts.js';
 import './uploadfile.js';
 import './changescale.js';
 import './effectslider.js';
