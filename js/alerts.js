@@ -26,23 +26,35 @@ const successTemplate = document.querySelector('#success').content.querySelector
 const alertSuccess = successTemplate.cloneNode(true);
 
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const viewContainer = document.body;//document.querySelector('.img-upload__overlay');
+const alertError = errorTemplate.cloneNode(true);
+
+const viewContainer = document.body;
+
+const resetForm = () => {
+  document.querySelector('.text__hashtags').value = '';
+  document.querySelector('.text__description').value = '';
+  document.querySelector('.img-upload__preview').style.filter = 'none';
+  document.querySelector('.img-upload__effect-level').hidden = true;
+  document.querySelector('#effect-none').checked = true;
+};
 
 const onAlertCloseElementClick = () => {
-  viewContainer.removeChild(alertSuccess);
+  viewContainer.removeChild(document.body.lastChild);
+  resetForm();
 };
 
 const onAlertCloseWindowClick = (evt) => {
   const ariaClick = evt.composedPath();
   if (ariaClick[0].innerHTML.includes('div')) {
-    viewContainer.removeChild(alertSuccess);
+    viewContainer.removeChild(document.body.lastChild);
+    resetForm();
   }
 };
 
 const onAlertCloseEscKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    viewContainer.removeChild(alertSuccess);
+    viewContainer.removeChild(document.body.lastChild);
   }
 };
 
@@ -50,12 +62,14 @@ const viewAlertSuccess = () => {
   viewContainer.appendChild(alertSuccess);
   document.querySelector('.success__button').addEventListener('click', onAlertCloseElementClick);
   document.querySelector('.success').addEventListener('click', onAlertCloseWindowClick);
-  document.addEventListener('click', onAlertCloseEscKeydown);
+  document.addEventListener('keydown', onAlertCloseEscKeydown, {once: true});
 };
 
 const viewAlertError = () => {
-  const alertError = errorTemplate.cloneNode(true);
   viewContainer.appendChild(alertError);
+  document.querySelector('.error__button').addEventListener('click', onAlertCloseElementClick);
+  document.querySelector('.error').addEventListener('click', onAlertCloseWindowClick);
+  document.addEventListener('keydown', onAlertCloseEscKeydown, {once: true});
 };
 
 export {showAlert, viewAlertSuccess, viewAlertError};

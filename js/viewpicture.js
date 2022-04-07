@@ -5,19 +5,29 @@ const hideElementWindow = () => {
 
 const picturesContainer = document.querySelector('.pictures');
 const modalCloseElement = document.querySelector('#picture-cancel');
+const commentsLoader = document.querySelector('.comments-loader');
 
 const getComments = (arr) => {
-  for (const comment of arr) {
-    const commentsElementHTML = `<li class="social__comment">
-    <img
-      class="social__picture"
-      src="${comment.avatar}"
-      alt="${comment.nameAuthor}"
-      width="35" height="35">
-    <p class="social__text">${comment.message}</p>
-    </li>`;
-    document.querySelector('.social__comments').insertAdjacentHTML('beforeend', commentsElementHTML);
-  }
+  let i = 0, j = 5;
+  return function () {
+    if (j <= arr.length) {
+      arr = arr.slice(i,j);
+      alert(j);
+      for (const comment of arr) {
+        const commentsElementHTML = `<li class="social__comment">
+        <img
+          class="social__picture"
+          src="${comment.avatar}"
+          alt="${comment.nameAuthor}"
+         width="35" height="35">
+        <p class="social__text">${comment.message}</p>
+        </li>`;
+        document.querySelector('.social__comments').insertAdjacentHTML('beforeend', commentsElementHTML);
+      }
+      i +=5; j +=5;
+      return  i, j;
+    }
+  };
 };
 
 const onPopupCloseElementClick = () => {
@@ -47,9 +57,11 @@ const openModalWindow = (arr) => {
       document.querySelector('.comments-count').textContent = currentPicture.comments.length;
       document.querySelector('.social__caption').textContent = currentPicture.description;
       document.querySelector('.social__comments').innerHTML = '';
-      getComments(currentPicture.comments);
-      document.querySelector('.social__comment-count').classList.add('hidden');
-      document.querySelector('.comments-loader').classList.add('hidden');
+      //const com = getComments(currentPicture.comments);
+      //com();
+      //com();
+
+      commentsLoader.addEventListener('click', getComments(currentPicture.comments));
 
       modalCloseElement.addEventListener ('click', onPopupCloseElementClick, {once: true});
 

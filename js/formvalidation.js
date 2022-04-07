@@ -42,7 +42,6 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-//const setForm = () => {
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if(pristine.validate()) {
@@ -52,4 +51,4 @@ uploadForm.addEventListener('submit', (evt) => {
     unblockSubmitButton();
   }
 });
-//};
+
