@@ -1,3 +1,5 @@
+import {onPopupCloseElementClick} from './uploadfile.js';
+
 const ALERT_SHOW_TIME = 5000;
 
 const showAlert = (message) => {
@@ -30,31 +32,25 @@ const alertError = errorTemplate.cloneNode(true);
 
 const viewContainer = document.body;
 
-const resetForm = () => {
-  document.querySelector('.text__hashtags').value = '';
-  document.querySelector('.text__description').value = '';
-  document.querySelector('.img-upload__preview').style.filter = 'none';
-  document.querySelector('.img-upload__effect-level').hidden = true;
-  document.querySelector('#effect-none').checked = true;
+const onAlertCloseEscKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    viewContainer.removeChild(document.body.lastChild);
+  }
 };
 
 const onAlertCloseElementClick = () => {
   viewContainer.removeChild(document.body.lastChild);
-  resetForm();
+  document.removeEventListener('keydown', onAlertCloseEscKeydown, {once: true});
+  onPopupCloseElementClick();
 };
 
 const onAlertCloseWindowClick = (evt) => {
   const ariaClick = evt.composedPath();
   if (ariaClick[0].innerHTML.includes('div')) {
     viewContainer.removeChild(document.body.lastChild);
-    resetForm();
-  }
-};
-
-const onAlertCloseEscKeydown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    viewContainer.removeChild(document.body.lastChild);
+    document.removeEventListener('keydown', onAlertCloseEscKeydown, {once: true});
+    onPopupCloseElementClick();
   }
 };
 

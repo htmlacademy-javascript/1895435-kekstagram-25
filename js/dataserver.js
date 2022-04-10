@@ -1,10 +1,9 @@
 import {viewAlertSuccess, viewAlertError} from './alerts.js';
 
-const getData = async(url, cb1, cb2) => {
+const getData = async(url) => {
   const res = await fetch(url);
   const data = await res.json();
-  cb1(data);
-  cb2(data);
+  return data;
 };
 
 const sendData = (url, formBody) => {
