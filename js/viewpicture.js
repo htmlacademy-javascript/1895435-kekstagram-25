@@ -9,7 +9,7 @@ const picturesContainer = document.querySelector('.pictures');
 const modalCloseElement = document.querySelector('#picture-cancel');
 const commentsLoader = document.querySelector('.comments-loader');
 
-const getChildComments = (arr) => {
+const getComments = (arr) => {
   let i = 0, j = COUNT_COMMENTS;
   return () => {
     if (i <= (arr.length)) {
@@ -61,10 +61,10 @@ const openModalWindow = (arr) => {
       document.querySelector('.likes-count').textContent = currentPicture.likes;
       document.querySelector('.social__caption').textContent = currentPicture.description;
       document.querySelector('.social__comments').innerHTML = '';
-      const getComments = getChildComments(currentPicture.comments);
-      getComments();
+      const onCommentsLoad = getComments(currentPicture.comments);
+      onCommentsLoad();
 
-      commentsLoader.addEventListener('click', getComments);
+      commentsLoader.addEventListener('click', onCommentsLoad);
 
       modalCloseElement.addEventListener ('click', onPopupCloseElementClick, {once: true});
 

@@ -9,6 +9,7 @@ import './effectslider.js';
 const dataPhotos = getData('https://25.javascript.pages.academy/kekstagram/data')
   .catch(() => showAlert('Что-то пошло не так! Фотографии не загрузились. Попробуйте ещё раз.'));
 
-dataPhotos.then((data) => getMiniatures(data));
-
-dataPhotos.then((data) => openModalWindow(data));
+dataPhotos.then((data) => {
+  getMiniatures(data);
+  openModalWindow(data);
+});
