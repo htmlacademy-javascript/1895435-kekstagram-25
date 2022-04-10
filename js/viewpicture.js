@@ -1,3 +1,5 @@
+const COUNT_COMMENTS =5;
+
 const hideElementWindow = () => {
   document.body.classList.remove('modal-open');
   document.querySelector('.big-picture').classList.add('hidden');
@@ -5,20 +7,33 @@ const hideElementWindow = () => {
 
 const picturesContainer = document.querySelector('.pictures');
 const modalCloseElement = document.querySelector('#picture-cancel');
+const commentsLoader = document.querySelector('.comments-loader');
 
 const getComments = (arr) => {
-  for (const comment of arr) {
-    const commentsElementHTML = `<li class="social__comment">
-    <img
-      class="social__picture"
-      src="${comment.avatar}"
-      alt="${comment.nameAuthor}"
-      width="35" height="35">
-    <p class="social__text">${comment.message}</p>
-    </li>`;
-    document.querySelector('.social__comments').insertAdjacentHTML('beforeend', commentsElementHTML);
-  }
+  let i = 0, j = COUNT_COMMENTS;
+  return () => {
+    if (i <= (arr.length)) {
+      const sliceArr = arr.slice(i,j);
+      for (const comment of sliceArr) {
+        const commentsElementHTML = `<li class="social__comment">
+        <img
+          class="social__picture"
+          src="${comment.avatar}"
+          alt="${comment.nameAuthor}"
+         width="35" height="35">
+        <p class="social__text">${comment.message}</p>
+        </li>`;
+        document.querySelector('.social__comments').insertAdjacentHTML('beforeend', commentsElementHTML);
+      }
+      j = (j < arr.length) ? j : arr.length;
+      document.querySelector('.comments-count').textContent = `${j} из ${arr.length}`;
+      i += COUNT_COMMENTS;
+      j += COUNT_COMMENTS;
+      return  i, j;
+    }
+  };
 };
+
 
 const onPopupCloseElementClick = () => {
   hideElementWindow();
@@ -41,15 +56,15 @@ const openModalWindow = (arr) => {
       document.querySelector('.big-picture').classList.remove('hidden');
       document.body.classList.add('modal-open');
       event.preventDefault();
-      const currentPicture = arr[event.target.id - 1];
+      const currentPicture = arr[event.target.id];
       document.querySelector('.big-picture__img').firstElementChild.src = currentPicture.url;
       document.querySelector('.likes-count').textContent = currentPicture.likes;
-      document.querySelector('.comments-count').textContent = currentPicture.comments.length;
       document.querySelector('.social__caption').textContent = currentPicture.description;
       document.querySelector('.social__comments').innerHTML = '';
-      getComments(currentPicture.comments);
-      document.querySelector('.social__comment-count').classList.add('hidden');
-      document.querySelector('.comments-loader').classList.add('hidden');
+      const onCommentsLoad = getComments(currentPicture.comments);
+      onCommentsLoad();
+
+      commentsLoader.addEventListener('click', onCommentsLoad);
 
       modalCloseElement.addEventListener ('click', onPopupCloseElementClick, {once: true});
 

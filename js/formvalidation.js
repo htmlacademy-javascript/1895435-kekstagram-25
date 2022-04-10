@@ -1,3 +1,4 @@
+import {sendData} from './dataserver.js';
 import {compareLength} from './util.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
@@ -29,7 +30,25 @@ pristine.addValidator(textHashtags, () => compareLength(hashtagsArray, MAX_HASHT
 
 pristine.addValidator(textComments, (value) => compareLength(value, MAX_COMMENT), 'Комментарий не должен превышать 140 символов');
 
+const submitButton = document.querySelector('#upload-submit');
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  if(pristine.validate()) {
+    blockSubmitButton();
+    const formData = new FormData(evt.target);
+    sendData('https://25.javascript.pages.academy/kekstagram', formData);
+    unblockSubmitButton();
+  }
 });
+
