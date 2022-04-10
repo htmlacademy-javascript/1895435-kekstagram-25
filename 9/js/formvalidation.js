@@ -1,4 +1,4 @@
-import { sendData } from './dataserver.js';
+import {sendData} from './dataserver.js';
 import {compareLength} from './util.js';
 
 const uploadForm = document.querySelector('.img-upload__form');

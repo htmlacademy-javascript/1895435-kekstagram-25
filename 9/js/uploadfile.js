@@ -34,3 +34,5 @@ uploadFile.addEventListener('change', () => {
   modalCloseElement.addEventListener('click', onPopupCloseElementClick, {once: true});
   document.addEventListener ('keydown', onPopupEscKeydown);
 });
+
+export {onPopupCloseElementClick};

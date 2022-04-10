@@ -9,10 +9,10 @@ const picturesContainer = document.querySelector('.pictures');
 const modalCloseElement = document.querySelector('#picture-cancel');
 const commentsLoader = document.querySelector('.comments-loader');
 
-const getComments = (arr) => {
+const getChildComments = (arr) => {
   let i = 0, j = COUNT_COMMENTS;
   return () => {
-    if (j <= (arr.length + COUNT_COMMENTS)) {
+    if (i <= (arr.length)) {
       const sliceArr = arr.slice(i,j);
       for (const comment of sliceArr) {
         const commentsElementHTML = `<li class="social__comment">
@@ -25,6 +25,8 @@ const getComments = (arr) => {
         </li>`;
         document.querySelector('.social__comments').insertAdjacentHTML('beforeend', commentsElementHTML);
       }
+      j = (j < arr.length) ? j : arr.length;
+      document.querySelector('.comments-count').textContent = `${j} из ${arr.length}`;
       i += COUNT_COMMENTS;
       j += COUNT_COMMENTS;
       return  i, j;
@@ -57,13 +59,12 @@ const openModalWindow = (arr) => {
       const currentPicture = arr[event.target.id];
       document.querySelector('.big-picture__img').firstElementChild.src = currentPicture.url;
       document.querySelector('.likes-count').textContent = currentPicture.likes;
-      document.querySelector('.comments-count').textContent = currentPicture.comments.length;
       document.querySelector('.social__caption').textContent = currentPicture.description;
       document.querySelector('.social__comments').innerHTML = '';
-      const com = getComments(currentPicture.comments);
-      com();
+      const getComments = getChildComments(currentPicture.comments);
+      getComments();
 
-      commentsLoader.addEventListener('click', com);
+      commentsLoader.addEventListener('click', getComments);
 
       modalCloseElement.addEventListener ('click', onPopupCloseElementClick, {once: true});
 
