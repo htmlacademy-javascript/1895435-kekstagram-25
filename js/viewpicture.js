@@ -60,7 +60,8 @@ const openModalWindow = (arr) => {
       document.body.classList.add('modal-open');
       commentsLoader.classList.remove('hidden');
       event.preventDefault();
-      const currentPicture = arr.find(() => currentPicture.id === event.target.id); //arr[event.target.id];
+      const index = arr.findIndex((item) => item.id === Number(event.target.id));
+      const currentPicture = arr[index];
       document.querySelector('.big-picture__img').firstElementChild.src = currentPicture.url;
       document.querySelector('.likes-count').textContent = currentPicture.likes;
       document.querySelector('.social__caption').textContent = currentPicture.description;

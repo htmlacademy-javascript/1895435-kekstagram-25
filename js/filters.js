@@ -3,20 +3,39 @@ import {getRandomNum} from './util.js';
 
 const RANDOM_NAMBER = 10;
 
-const buttonFilterDefault = document.querySelector('#filter-default');
-const buttonFilterRandom = document.querySelector('#filter-random');
-const buttonFilterDiscussed = document.querySelector('#filter-discussed');
+document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 
-const getArrayRandomNamber = (arr) => {
+const buttonsFilter = document.querySelector('.img-filters__form');
+
+const getArrayRandomPhotos = (arr) => {
   const arrayKey = new Set;
   while (arrayKey.size !== RANDOM_NAMBER) {
     arrayKey.add(getRandomNum(0, arr.length-1));
   }
-  const arrayPhotos = [];
+  const arrPhotos = [];
   for (const key of arrayKey) {
-    arrayPhotos.push(arr[key]);
+    arrPhotos.push(arr[key]);
   }
-  return arrayPhotos;
+  return arrPhotos;
+};
+
+let arrayPhotos = [];
+
+const getFilterPhotos = (arr) => {
+  arrayPhotos = arr.slice();
+  getMiniatures(arr);
+};
+
+
+const onButtonClickFilter = (evt) => {
+  switch (evt.target.id) {
+    case 'filter-random': getMiniatures(getArrayRandomPhotos(arrayPhotos));
+      break;
+    case 'filter-discussed':
+      arrayPhotos.sort((photoA, photoB) => (photoB.comments.length - photoA.comments.length));
+      break;
+    default: getMiniatures(arrayPhotos);
+  }
 };
 
 /*
@@ -24,4 +43,6 @@ onButtonClickFilterDefault = () => {
   getMiniatures(arrayPhotos);
 };
 */
-export {getArrayRandomNamber};
+buttonsFilter.addEventListener('click', onButtonClickFilter);
+
+export {getArrayRandomPhotos, getFilterPhotos};
