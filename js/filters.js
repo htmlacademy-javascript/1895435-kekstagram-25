@@ -1,5 +1,5 @@
 import {getMiniatures} from './miniatures.js';
-import {getRandomNum} from './util.js';
+import {getRandomNum, debounce} from './util.js';
 
 const RANDOM_NAMBER = 10;
 
@@ -22,27 +22,27 @@ const getArrayRandomPhotos = (arr) => {
 let arrayPhotos = [];
 
 const getFilterPhotos = (arr) => {
-  arrayPhotos = arr.slice();
-  getMiniatures(arr);
+  arrayPhotos = {
+    'filter-default': () => (
+      arr.slice()
+    ),
+    'filter-random': () => (
+      getArrayRandomPhotos (arr)
+    ),
+    'filter-discussed': () => (
+      arr.slice().sort((commentA, commentB) => (commentB.comments.length - commentA.comments.length))
+    )
+  };
+  debounce(getMiniatures(arr));
 };
-
 
 const onButtonClickFilter = (evt) => {
-  switch (evt.target.id) {
-    case 'filter-random': getMiniatures(getArrayRandomPhotos(arrayPhotos));
-      break;
-    case 'filter-discussed':
-      arrayPhotos.sort((photoA, photoB) => (photoB.comments.length - photoA.comments.length));
-      break;
-    default: getMiniatures(arrayPhotos);
-  }
+  document.querySelectorAll('.picture').forEach((el) => el.remove());
+  document.querySelectorAll('.img-filters__button').forEach((el) => el.classList.remove('img-filters__button--active'));
+  document.querySelector(`#${evt.target.id}`).classList.add('img-filters__button--active');
+  debounce(getMiniatures(arrayPhotos[evt.target.id]()));
 };
 
-/*
-onButtonClickFilterDefault = () => {
-  getMiniatures(arrayPhotos);
-};
-*/
 buttonsFilter.addEventListener('click', onButtonClickFilter);
 
 export {getArrayRandomPhotos, getFilterPhotos};

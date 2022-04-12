@@ -1,3 +1,5 @@
+const TIMEOUT_DEBOUNCE = 500;
+
 const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 const getArrayElement = (arr) => arr[getRandomNum(0, arr.length - 1)];
@@ -14,4 +16,12 @@ const getTextMessage = (arr) => {
 
 const compareLength = (value, max) => value.length <= max;
 
-export { getRandomNum, getArrayElement, getTextMessage, compareLength};
+function debounce (callback, timeoutDelay = TIMEOUT_DEBOUNCE) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { getRandomNum, getArrayElement, getTextMessage, compareLength, debounce};
