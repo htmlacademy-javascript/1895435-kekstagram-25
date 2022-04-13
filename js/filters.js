@@ -3,7 +3,9 @@ import {getRandomNum, debounce} from './util.js';
 
 const RANDOM_NAMBER = 10;
 
-document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+setTimeout(() => {
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+}, 1000);
 
 const buttonsFilter = document.querySelector('.img-filters__form');
 
@@ -33,7 +35,7 @@ const getFilterPhotos = (arr) => {
       arr.slice().sort((commentA, commentB) => (commentB.comments.length - commentA.comments.length))
     )
   };
-  debounce(getMiniatures(arr));
+  getMiniatures(arr);
 };
 
 const onButtonClickFilter = (evt) => {
@@ -43,6 +45,6 @@ const onButtonClickFilter = (evt) => {
   debounce(getMiniatures(arrayPhotos[evt.target.id]()));
 };
 
-buttonsFilter.addEventListener('click', onButtonClickFilter);
+buttonsFilter.addEventListener('click', debounce(onButtonClickFilter));
 
 export {getArrayRandomPhotos, getFilterPhotos};

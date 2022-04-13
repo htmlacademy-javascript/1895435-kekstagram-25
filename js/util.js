@@ -16,12 +16,12 @@ const getTextMessage = (arr) => {
 
 const compareLength = (value, max) => value.length <= max;
 
-function debounce (callback, timeoutDelay = TIMEOUT_DEBOUNCE) {
+const debounce = (callback, timeoutDelay = TIMEOUT_DEBOUNCE) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 export { getRandomNum, getArrayElement, getTextMessage, compareLength, debounce};

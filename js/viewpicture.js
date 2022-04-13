@@ -19,7 +19,7 @@ const getComments = (arr) => {
         <img
           class="social__picture"
           src="${comment.avatar}"
-          alt="${comment.nameAuthor}"
+          alt="${comment.name}"
          width="35" height="35">
         <p class="social__text">${comment.message}</p>
         </li>`;
