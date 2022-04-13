@@ -2,11 +2,11 @@ import {getMiniatures} from './miniatures.js';
 import {getRandomNum, debounce} from './util.js';
 
 const RANDOM_NAMBER = 10;
-
+/*
 setTimeout(() => {
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 }, 1000);
-
+*/
 const buttonsFilter = document.querySelector('.img-filters__form');
 
 const getArrayRandomPhotos = (arr) => {
@@ -37,6 +37,12 @@ const getFilterPhotos = (arr) => {
   };
   getMiniatures(arr);
 };
+
+Promise.all(Array.from(document.querySelectorAll('.picture')).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
+  setTimeout(() => {
+    document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+  }, 300);
+});
 
 const onButtonClickFilter = (evt) => {
   document.querySelectorAll('.picture').forEach((el) => el.remove());
