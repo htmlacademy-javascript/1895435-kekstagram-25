@@ -14,4 +14,5 @@ const dataPhotos = getData('https://25.javascript.pages.academy/kekstagram/data'
 dataPhotos.then((data) => {
   getFilterPhotos(data);
   openModalWindow(data);
-});
+})
+  .then(() => document.querySelector('.img-filters').classList.remove('img-filters--inactive'));
