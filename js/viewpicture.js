@@ -19,7 +19,7 @@ const getComments = (arr) => {
         <img
           class="social__picture"
           src="${comment.avatar}"
-          alt="${comment.nameAuthor}"
+          alt="${comment.name}"
          width="35" height="35">
         <p class="social__text">${comment.message}</p>
         </li>`;
@@ -27,6 +27,9 @@ const getComments = (arr) => {
       }
       j = (j < arr.length) ? j : arr.length;
       document.querySelector('.comments-count').textContent = `${j} из ${arr.length}`;
+      if (j === arr.length) {
+        commentsLoader.classList.add('hidden');
+      }
       i += COUNT_COMMENTS;
       j += COUNT_COMMENTS;
       return  i, j;
@@ -55,8 +58,10 @@ const openModalWindow = (arr) => {
     if (event.target.nodeName === 'IMG') {
       document.querySelector('.big-picture').classList.remove('hidden');
       document.body.classList.add('modal-open');
+      commentsLoader.classList.remove('hidden');
       event.preventDefault();
-      const currentPicture = arr[event.target.id];
+      const index = arr.findIndex((item) => item.id === Number(event.target.id));
+      const currentPicture = arr[index];
       document.querySelector('.big-picture__img').firstElementChild.src = currentPicture.url;
       document.querySelector('.likes-count').textContent = currentPicture.likes;
       document.querySelector('.social__caption').textContent = currentPicture.description;
