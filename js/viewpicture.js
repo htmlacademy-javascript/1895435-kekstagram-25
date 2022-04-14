@@ -53,14 +53,14 @@ function onPopupEscKeydown (evt) {
 }
 
 const openModalWindow = (arr) => {
-  picturesContainer.addEventListener('click', (event) => {
+  picturesContainer.addEventListener('click', (evt) => {
 
-    if (event.target.nodeName === 'IMG') {
+    if (evt.target.nodeName === 'IMG') {
       document.querySelector('.big-picture').classList.remove('hidden');
       document.body.classList.add('modal-open');
       commentsLoader.classList.remove('hidden');
-      event.preventDefault();
-      const index = arr.findIndex((item) => item.id === Number(event.target.id));
+      evt.preventDefault();
+      const index = arr.findIndex((item) => item.id === Number(evt.target.id));
       const currentPicture = arr[index];
       document.querySelector('.big-picture__img').firstElementChild.src = currentPicture.url;
       document.querySelector('.likes-count').textContent = currentPicture.likes;
