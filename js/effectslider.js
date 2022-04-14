@@ -10,7 +10,7 @@ const EFFECT_MARVIN = {range: {min: 0, max: 100}, start: 100, step: 1, format: {
 const EFFECT_PHOBOS = {range: {min: 0, max: 3}, start: 3, step: 0.1, format: {to: (value) => `${value.toFixed(1)}px`, from: (value) => parseFloat(value)}};
 const EFFECT_HEAT = {range: {min: 0, max: 3}, start: 3, step: 0.1, format: {to: (value) => value.toFixed(1), from: (value) => parseFloat(value)}};
 
-const switchEffects = {
+const EFFECTS = {
   chrome: [EFFECT_CHROME, 'grayscale'],
   sepia: [EFFECT_SEPIA, 'sepia'],
   marvin: [EFFECT_MARVIN, 'invert'],
@@ -29,10 +29,10 @@ const onEffectElementClick = (evt) => {
     const effectKey = evt.target.closest('input').value;
     if (effectKey !== 'none') {
       slaiderField.hidden = false;
-      sliderElement.noUiSlider.updateOptions(switchEffects[effectKey][0]);
+      sliderElement.noUiSlider.updateOptions(EFFECTS[effectKey][0]);
       sliderElement.noUiSlider.on('update', () => {
         effectLevel.value = sliderElement.noUiSlider.get();
-        imagePreview.style.filter = `${switchEffects[effectKey][1]}(${sliderElement.noUiSlider.get()})`;
+        imagePreview.style.filter = `${EFFECTS[effectKey][1]}(${sliderElement.noUiSlider.get()})`;
       });
     } else {
       imagePreview.style.filter = 'none';

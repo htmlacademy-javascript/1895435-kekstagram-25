@@ -10,17 +10,17 @@ const getArrayRandomPhotos = (arr) => {
   while (arrayKey.size !== RANDOM_NAMBER) {
     arrayKey.add(getRandomNum(0, arr.length-1));
   }
-  const arrPhotos = [];
+  const photos = [];
   for (const key of arrayKey) {
-    arrPhotos.push(arr[key]);
+    photos.push(arr[key]);
   }
-  return arrPhotos;
+  return photos;
 };
 
-let arrayPhotos = [];
+let filters = [];
 
 const getFilterPhotos = (arr) => {
-  arrayPhotos = {
+  filters = {
     'filter-default': () => (
       arr.slice()
     ),
@@ -38,7 +38,7 @@ const onButtonClickFilter = (evt) => {
   document.querySelectorAll('.picture').forEach((el) => el.remove());
   document.querySelectorAll('.img-filters__button').forEach((el) => el.classList.remove('img-filters__button--active'));
   document.querySelector(`#${evt.target.id}`).classList.add('img-filters__button--active');
-  debounce(getMiniatures(arrayPhotos[evt.target.id]()));
+  debounce(getMiniatures(filters[evt.target.id]()));
 };
 
 const onFilterButtonClickWithDebounce = debounce(onButtonClickFilter);
