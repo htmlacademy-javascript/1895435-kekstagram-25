@@ -11,8 +11,9 @@ const commentsLoader = document.querySelector('.comments-loader');
 
 const getComments = (arr) => {
   let i = 0, j = COUNT_COMMENTS;
+  const arraylength = arr.length;
   return () => {
-    if (i <= (arr.length)) {
+    if (i < (arraylength)) {
       const sliceArr = arr.slice(i,j);
       for (const comment of sliceArr) {
         const commentsElementHTML = `<li class="social__comment">
@@ -25,14 +26,13 @@ const getComments = (arr) => {
         </li>`;
         document.querySelector('.social__comments').insertAdjacentHTML('beforeend', commentsElementHTML);
       }
-      j = (j < arr.length) ? j : arr.length;
-      document.querySelector('.comments-count').textContent = `${j} из ${arr.length}`;
-      if (j === arr.length) {
+      j = (j < arraylength) ? j : arraylength;
+      document.querySelector('.comments-count').textContent = `${j} из ${arraylength}`;
+      if (j === arraylength) {
         commentsLoader.classList.add('hidden');
       }
       i += COUNT_COMMENTS;
       j += COUNT_COMMENTS;
-      return  i, j;
     }
   };
 };
